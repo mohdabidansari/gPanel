@@ -5,6 +5,7 @@ import { makeStyles, alpha } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import Box from "@material-ui/core/Box";
+import Tooltip from "@material-ui/core/Tooltip";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
@@ -18,17 +19,18 @@ import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
 import InputBase from "@material-ui/core/InputBase";
 import Avatar from "@material-ui/core/Avatar";
-import MenuIcon from "@material-ui/icons/Menu";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import SearchIcon from "@material-ui/icons/Search";
-import SettingsIcon from "@material-ui/icons/Settings";
-import FeedbackIcon from "@material-ui/icons/Feedback";
-import PersonIcon from "@material-ui/icons/Person";
-import HelpIcon from "@material-ui/icons/Help";
+import MenuIcon from "@material-ui/icons/MenuOutlined";
+import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
+import SearchIcon from "@material-ui/icons/SearchOutlined";
+import SettingsIcon from "@material-ui/icons/SettingsOutlined";
+import FeedbackIcon from "@material-ui/icons/FeedbackOutlined";
+import PersonIcon from "@material-ui/icons/PersonOutlined";
+import HelpIcon from "@material-ui/icons/HelpOutlined";
 import { mainListItems, secondaryListItems } from "./listItems";
 import Sidebar from "./Sidebar";
 import UserTable from "./UserTable";
 import About from "./About";
+import UserProfile from "./UserProfile";
 
 function Copyright() {
   return (
@@ -50,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    // paddingRight: 24, // keep right padding when drawer closed
     display: "flex",
     // justifyContent: "space-evenly",
   },
@@ -67,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: "white",
+    backgroundColor: theme.palette.primary,
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -109,21 +111,22 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: "100vh",
+    // height: "100vh",
+    width: "100%",
     overflow: "auto",
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
   },
   fixedHeight: {
-    height: "85vh",
+    // height: "100vh",
   },
 
   search: {
@@ -149,10 +152,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "black",
+    color: "white",
   },
   inputRoot: {
-    color: "black",
+    color: "white",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -184,7 +187,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
@@ -195,11 +198,11 @@ export default function Dashboard() {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar)}>
-        <Toolbar className={classes.toolbar}>
+        <Toolbar className={classes.toolbar} color="inherit">
           <div className={classes.appBarLeft}>
             <IconButton
               edge="start"
-              color="default"
+              color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               className={clsx(classes.menuButton)}
@@ -209,11 +212,11 @@ export default function Dashboard() {
             <Typography
               component="h1"
               variant="h6"
-              color="textSecondary"
+              color="inherit"
               noWrap
               className={classes.title}
             >
-              gPanel
+              Admin Plus
             </Typography>
           </div>
           <div className={classes.appBarMiddle}>
@@ -232,34 +235,46 @@ export default function Dashboard() {
             </div>
           </div>
           <div className={classes.appBarRight}>
-            <IconButton color="default">
-              <SettingsIcon />
-            </IconButton>
-            <IconButton color="default">
-              <FeedbackIcon />
-            </IconButton>
-            <IconButton color="default">
-              <PersonIcon />
-            </IconButton>
-            <IconButton color="default">
-              <HelpIcon />
-            </IconButton>
-            <IconButton color="default">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton color="default">
+            <Tooltip title="Settings">
+              <IconButton color="inherit">
+                <SettingsIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Feedback">
+              <IconButton color="inherit">
+                <FeedbackIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Live Chat">
+              <IconButton color="inherit">
+                <PersonIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Help">
+              <IconButton color="inherit">
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Notifications">
+              <IconButton color="inherit">
+                <Badge badgeContent={4} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+            <IconButton color="inherit">
               <Avatar>H</Avatar>
             </IconButton>
           </div>
         </Toolbar>
       </AppBar>
+
       <Drawer
         variant="permanent"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
+        style={{ height: "100vh", overflowX: "hidden" }}
         open={open}
       >
         <div className={classes.toolbarIcon}></div>
@@ -271,36 +286,28 @@ export default function Dashboard() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Paper className={fixedHeightPaper}>
-                <Switch>
-                  <Route path="/userManagement" component={UserTable} exact />
-                  <Route path="/groups" component={About} />
-                  <Route path="/contact" component={About} />
-                </Switch>
-              </Paper>
-            </Grid>
-
-            {/* <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                
-                Deposits
-              </Paper>
-            </Grid>
-            
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                
-                Orders
-              </Paper>
-            </Grid> */}
+        {/* <Container className={classes.container}> */}
+        <Grid container>
+          <Grid item xs={12} lg={12}>
+            <Paper
+              className={fixedHeightPaper}
+              style={{ backgroundColor: "#fafafa" }}
+            >
+              <Switch>
+                <Route path="/userManagement" component={UserTable} exact />
+                <Route
+                  path="/userManagement/:id"
+                  component={UserProfile}
+                  exact
+                />
+                <Route path="/groups" component={About} />
+                <Route path="/contact" component={About} />
+              </Switch>
+            </Paper>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
+        </Grid>
+
+        {/* </Container> */}
       </main>
     </div>
   );

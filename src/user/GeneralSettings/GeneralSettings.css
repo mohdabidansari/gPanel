@@ -1,0 +1,32 @@
+.GeneralSettings{
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.GeneralSettings .dFlex{
+    display: flex;
+    flex-grow: 1;
+}
+
+.GeneralSettings .aside{
+    width: 25%;
+    /* border: 1px solid red; */
+    /* width: 20px; */
+    /* height: 50px; */
+}
+
+.GeneralSettings .main{
+    flex: 1;
+    /* border: 1px solid black; */
+    /* height: 50px; */
+    padding-left: 10px;
+}
+
+.GeneralSettings .button{
+    background-color: transparent;
+    text-decoration: underline;
+    border: none;
+    cursor: pointer;
+    color: blue;
+}
