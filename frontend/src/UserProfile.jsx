@@ -45,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UserProfile({ match, location, user }) {
-  console.log(user || match.params.id);
+function UserProfile({ history, match, location, user }) {
+  console.log("ID -------->", user || match?.params?.id);
   const classes = useStyles();
 
   const [showSidebar, setShowSidebar] = useState(true);
@@ -58,7 +58,7 @@ function UserProfile({ match, location, user }) {
   };
 
   useEffect(() => {
-    const id = match.params.id || user;
+    const id = match?.params?.id || user;
     fetch(`http://localhost:9000/api/users/${id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,7 @@ function UserProfile({ match, location, user }) {
         console.log(data.result);
         setData(data.result);
       });
-  }, [match.params.id, user]);
+  }, [match?.params?.id, user]);
 
   const showMainContent = () => {
     switch (selectedIndex) {
@@ -97,7 +97,11 @@ function UserProfile({ match, location, user }) {
                 {location?.state === "grid" && (
                   <div>
                     <Tooltip title="Back to All Users">
-                      <IconButton aria-label="back" component="span">
+                      <IconButton
+                        aria-label="back"
+                        component="span"
+                        onClick={() => history.goBack()}
+                      >
                         <ArrowBackIcon />
                       </IconButton>
                     </Tooltip>

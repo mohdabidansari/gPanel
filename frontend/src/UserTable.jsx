@@ -327,17 +327,21 @@ export default function UserTable(props) {
             createData(d.primaryEmail, d.name.fullName, d.orgUnitPath)
           )
         );
+        setUser(datas.result[0]["primaryEmail"]);
       });
   }, []);
 
   const showUserProfile = (row) => {
     // props.history.push(`/userManagement/${row.name}`);
     if (layout === "grid") {
+      console.log("GRID");
       props.history.push({
         pathname: `/userManagement/${row.userEmail}`,
         state: layout,
       });
     } else if (layout === "pickList") {
+      console.log("pICLLIST");
+      console.log("USER ->>", row.userEmail);
       setUser(row.userEmail);
     }
   };
@@ -571,7 +575,7 @@ export default function UserTable(props) {
                               scope="row"
                               padding="none"
                             >
-                              {row.username}
+                              {row.userEmail}
                             </TableCell>
                             {layout === "grid" && (
                               <>
