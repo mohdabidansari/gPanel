@@ -185,7 +185,7 @@ function UserProfile({ history, match, location, user }) {
                 >
                   <Grid
                     item
-                    sm={3}
+                    sm={2}
                     style={{
                       borderRight: "1px solid rgba(0,0,0,.12)",
                       paddingLeft: "2rem",
@@ -199,7 +199,7 @@ function UserProfile({ history, match, location, user }) {
                   </Grid>
                 </Slide>
 
-                <Grid item sm={9} style={{ paddingLeft: "1rem" }}>
+                <Grid item sm={10} style={{ paddingLeft: "1rem" }}>
                   <IconButton
                     size="small"
                     aria-label="assessment"

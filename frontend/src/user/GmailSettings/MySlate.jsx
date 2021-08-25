@@ -140,7 +140,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MySlate = ({ data, sign }) => {
+const MySlate = ({ data, sign, sendAs, setSign }) => {
+  console.log("MY SLATE rendered");
   const classes = useStyles();
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -153,6 +154,16 @@ const MySlate = ({ data, sign }) => {
       const arr = key.split("-");
       if (data.hasOwnProperty(arr[0]) && data[arr[0]].hasOwnProperty(arr[1])) {
         return data[arr[0]][arr[1]];
+      } else if (!data.hasOwnProperty(arr[0])) {
+        return "";
+      } else if (arr[0] === "emails") {
+        // if(arr[1] === "primary"){
+        //   return data["primaryEmail"]
+        // }
+        return data["primaryEmail"];
+      } else if (arr[0] === "phones") {
+        const found = data["phones"].find((phone) => phone.type === "home");
+        return found["value"];
       } else {
         return "";
       }
@@ -209,12 +220,13 @@ const MySlate = ({ data, sign }) => {
       draftToHtml(convertToRaw(newEditorState.getCurrentContent()))
     );
     // }
-  }, [sign]);
+  }, [data, sign, sendAs]);
 
   const handleSave = () => {
     console.log(myRef.current.innerHTML);
 
     const obj = {
+      sendAs: sendAs,
       signature: myRef.current.innerHTML,
     };
 
@@ -226,7 +238,12 @@ const MySlate = ({ data, sign }) => {
 
     fetch("http://localhost:9000/api/create/signature", requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        setEditorState(EditorState.createEmpty());
+        myRef.current.innerHTML = "";
+        setSign("");
+      });
   };
 
   return (

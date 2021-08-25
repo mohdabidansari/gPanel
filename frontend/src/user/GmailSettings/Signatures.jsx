@@ -42,15 +42,15 @@ const useStyles = makeStyles((theme) => ({
 
 const options = {
   name: ["fullName", "familyName", "givenName"],
-  email: ["home", "work", "other", "custom", "primary"],
-  phone: ["home"],
+  emails: ["home", "work", "other", "custom", "primary"],
+  phones: ["home"],
   instantMessager: ["message"],
-  address: ["home"],
+  addresses: ["home"],
   relation: ["spouse"],
   organization: ["school"],
   externalId: ["id"],
-  website: ["website"],
-  gender: ["gender"],
+  websites: ["websites"],
+  gender: [" "],
 };
 
 function Signatures({ data }) {
@@ -137,14 +137,14 @@ function Signatures({ data }) {
                   }}
                 >
                   <MenuItem value="name">Name</MenuItem>
-                  <MenuItem value="email">Email</MenuItem>
-                  <MenuItem value="phone">Phone</MenuItem>
+                  <MenuItem value="emails">Email</MenuItem>
+                  <MenuItem value="phones">Phones</MenuItem>
                   <MenuItem value="instantMessager">Instant Messenger</MenuItem>
-                  <MenuItem value="address">Address</MenuItem>
+                  <MenuItem value="addresses">Addresses</MenuItem>
                   <MenuItem value="relation">Relation</MenuItem>
                   <MenuItem value="organization">Organization</MenuItem>
                   <MenuItem value="externalId">External Id</MenuItem>
-                  <MenuItem value="website">Website</MenuItem>
+                  <MenuItem value="websites">Websites</MenuItem>
                   <MenuItem value="gender">Gender</MenuItem>
                 </Select>
               </FormControl>
@@ -294,7 +294,12 @@ function Signatures({ data }) {
           </AccordionDetails>
         </Accordion> */}
         <div style={{ height: "10px" }} />
-        <MySlate data={data} sign={signatureTemplate} />
+        <MySlate
+          data={data}
+          sign={signatureTemplate}
+          sendAs={sendAs}
+          setSign={setSignatureTemplate}
+        />
       </div>
     </div>
   );
